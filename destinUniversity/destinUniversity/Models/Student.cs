@@ -18,6 +18,7 @@ namespace destinUniversity.Models
 
          [DisplayName("Enrollement Date")]
         public DateTime EnrollmentDate { get; set; }
+         public string Secret { get; set; }
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
