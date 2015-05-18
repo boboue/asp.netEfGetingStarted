@@ -1,4 +1,6 @@
-﻿namespace destinUniversity.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace destinUniversity.Models
 {
     public enum Grade
     {
@@ -11,7 +13,7 @@
         public int CourseID { get; set; }
 
         public int StudentID { get; set; }
-
+        [DisplayFormat(NullDisplayText = "No grade")]
         public Grade? Grade { get; set; }
 
         public virtual Course Course { get; set; }
