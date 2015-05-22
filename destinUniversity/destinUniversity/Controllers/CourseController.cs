@@ -40,7 +40,7 @@ namespace destinUniversity.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            PopulateDepartmentsDropDownList();
             return View();
         }
 
@@ -74,7 +74,7 @@ namespace destinUniversity.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+           PopulateDepartmentsDropDownList(course.Department);
             return View(course);
         }
 
@@ -129,5 +129,12 @@ namespace destinUniversity.Controllers
             }
             base.Dispose(disposing);
         }
+        private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
+        {
+            var departmentsQuery = from d in db.Departments
+                                   orderby d.Name
+                                   select d;
+            ViewBag.DepartmentID = new SelectList(departmentsQuery, "DepartmentID", "Name", selectedDepartment);
+        } 
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using destinUniversity.DAL;
 using destinUniversity.Models;
+using destinUniversity.ViewModels;
 
 namespace destinUniversity.Controllers
 {
@@ -16,10 +17,39 @@ namespace destinUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Instructor
-        public ActionResult Index()
+        public ActionResult Index(int? id, int? courseID)
         {
-            var instructors = db.Instructors.Include(i => i.OfficeAssignment);
-            return View(instructors.ToList());
+            var viewModel = new InstructorIndexData();
+            viewModel.Instructors = db.Instructors
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.Courses.Select(c => c.Department))
+                .OrderBy(i => i.LastName);
+
+            if (id != null)
+            {
+                ViewBag.InstructorID = id.Value;
+                viewModel.Courses = viewModel.Instructors.Where(
+                    i => i.ID == id.Value).Single().Courses;
+            }
+
+            if (courseID != null)
+            {
+                //Lazy Loading
+                //ViewBag.CourseID = courseID.Value;
+                //viewModel.Enrollments = viewModel.Courses.Where(
+                //    x => x.CourseID == courseID).Single().Enrollments;
+                
+                //Explicit Loadind
+                var selectedCourse = viewModel.Courses.Single(x => x.CourseID == courseID);
+                db.Entry(selectedCourse).Collection(x => x.Enrollments).Load();
+                foreach (var enrollment in selectedCourse.Enrollments)
+                {
+                    db.Entry(enrollment).Reference(x => x.Student).Load();
+                }
+                viewModel.Enrollments = selectedCourse.Enrollments;
+            }
+
+            return View(viewModel);
         }
 
         // GET: Instructor/Details/5
