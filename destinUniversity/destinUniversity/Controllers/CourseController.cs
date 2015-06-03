@@ -17,11 +17,11 @@ namespace destinUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         //// GET: Courses
-        public ActionResult Index()
-        {
-            var courses = db.Courses.Include(c => c.Department);
-            return View(courses.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    var courses = db.Courses.Include(c => c.Department);
+        //    return View(courses.ToList());
+        //}
 
         //// GET: Courses/Details/5
         //public ActionResult Details(int? id)
