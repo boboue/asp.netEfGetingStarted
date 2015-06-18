@@ -13,8 +13,7 @@ namespace destinUniversity.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "destinUniversity.DAL.SchoolContext";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(SchoolContext context)
@@ -80,31 +79,31 @@ namespace destinUniversity.Migrations
             var courses = new List<Course>
             {
                 new Course {CourseID = 1050, Title = "Chemistry",      Credits = 3,
-                  DepartmentID = departments.Single( s => s.Name == "Engineering").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "Engineering").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
                 new Course {CourseID = 4022, Title = "Microeconomics", Credits = 3,
-                  DepartmentID = departments.Single( s => s.Name == "Economics").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "Economics").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
                 new Course {CourseID = 4041, Title = "Macroeconomics", Credits = 3,
-                  DepartmentID = departments.Single( s => s.Name == "Economics").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "Economics").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
                 new Course {CourseID = 1045, Title = "Calculus",       Credits = 4,
-                  DepartmentID = departments.Single( s => s.Name == "Mathematics").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "Mathematics").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
                 new Course {CourseID = 3141, Title = "Trigonometry",   Credits = 4,
-                  DepartmentID = departments.Single( s => s.Name == "Mathematics").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "Mathematics").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
                 new Course {CourseID = 2021, Title = "Composition",    Credits = 3,
-                  DepartmentID = departments.Single( s => s.Name == "English").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "English").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
                 new Course {CourseID = 2042, Title = "Literature",     Credits = 4,
-                  DepartmentID = departments.Single( s => s.Name == "English").DepartmentID,
+                  DepartmentIDRefId = departments.Single( s => s.Name == "English").DepartmentID,
                   Instructors = new List<Instructor>() 
                 },
             };
